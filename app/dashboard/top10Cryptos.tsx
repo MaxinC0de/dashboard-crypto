@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { TrendingDown, TrendingUp } from "lucide-react"
+import Link from "next/link"
 
 export default function Top10Cryptos({ coins }) {
     return(
@@ -24,7 +25,14 @@ export default function Top10Cryptos({ coins }) {
                             const isUp = change > 0
                             return(
                                 <TableRow key={coin.id}>
-                                    <TableCell className="flex items-center"><span className="inline-block"><img src={coin.image} className="w-6 h-6"></img></span><span className="mx-2 font-medium">{coin.name}</span></TableCell>
+                                    <TableCell>
+                                        <Link href={`/dashboard/coin/${coin.id}`} className="flex items-center">
+                                            <span className="inline-block">
+                                                <img src={coin.image} className="w-6 h-6"></img>
+                                            </span>
+                                            <span className="mx-2 font-medium">{coin.name}</span>
+                                        </Link>
+                                    </TableCell>
                                     <TableCell className="font-medium">{coin.current_price.toLocaleString("fr-FR", {
                                             style: "currency",
                                             currency: "EUR",

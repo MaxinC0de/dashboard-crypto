@@ -7,3 +7,16 @@ export async function getTopCoins() {
     const coins = await res.json()
     return coins
 }
+
+export async function getCoinChart({ id }: { id: string }) {
+    const res = await fetch(
+        `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=eur&days=7`, {
+            next: {
+                revalidate: 60
+            }
+        }
+    )
+    if (!res.ok) throw new Error("Erreur requête coin gecko")
+    const data = await res.json()
+    return data
+}
