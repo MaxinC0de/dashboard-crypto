@@ -6,7 +6,7 @@ export default function CoinCard({ coins }: { coins: {} }) {
     return(
         <>
             {coins.map((coin) => {
-                    const isUp = coin.price_change_percentage_24h > 0
+                    const isUp = coin.price_change_percentage_24h ?? 0 > 0
                     return(
                         <Card key={coin.id} className="border border-zinc-200 bg-white shadow-sm ring-0">
                             <CardHeader className="flex items-center justify-between">

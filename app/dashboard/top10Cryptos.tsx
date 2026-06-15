@@ -20,7 +20,7 @@ export default function Top10Cryptos({ coins }) {
                     </TableHeader>
                     <TableBody>
                         {coins.map((coin) => {
-                            const isUp = coin.price_change_percentage_24h > 0
+                            const isUp = coin.price_change_percentage_24h ?? 0 > 0
                             return(
                                 <TableRow key={coin.id}>
                                     <TableCell className="flex items-center"><span className="inline-block"><img src={coin.image} className="w-6 h-6"></img></span><span className="mx-2 font-medium">{coin.name}</span></TableCell>
