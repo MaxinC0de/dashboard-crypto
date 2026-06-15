@@ -4,6 +4,7 @@ import CoinCard from "./coinCard";
 
 
 export default async function Page() {    
+    await new Promise((resolve) => setTimeout(resolve, 1500))
     const coins = await getTopCoins()
     const top3Coins = coins.slice(0,3)
     return(
