@@ -6,7 +6,8 @@ export default function CoinCard({ coins }: { coins: {} }) {
     return(
         <>
             {coins.map((coin) => {
-                    const isUp = coin.price_change_percentage_24h ?? 0 > 0
+                   const change = coin.price_change_percentage_24h ?? 0
+                   const isUp = change > 0
                     return(
                         <Card key={coin.id} className="border border-zinc-200 bg-white shadow-sm ring-0">
                             <CardHeader className="flex items-center justify-between">
@@ -20,7 +21,7 @@ export default function CoinCard({ coins }: { coins: {} }) {
                                     : "text-red-500 bg-red-500/15"
                                 }`}>
                                     {isUp && "+"}
-                                    {coin.price_change_percentage_24h.toFixed(2)}%
+                                    {change.toFixed(2)}%
                                 </Badge>
                             </CardHeader>
                             <CardContent className="-mt-3">
