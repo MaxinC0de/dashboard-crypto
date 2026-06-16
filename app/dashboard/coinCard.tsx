@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function CoinCard({ coins }: { coins: {} }) {
     return(
-        <>
+        <section>
             {coins.map((coin) => {
                    const change = coin.price_change_percentage_24h ?? 0
                    const isUp = change > 0
@@ -38,6 +38,6 @@ export default function CoinCard({ coins }: { coins: {} }) {
                         </Link>
                     )
                 })}
-        </>
+        </section>
     )
 }

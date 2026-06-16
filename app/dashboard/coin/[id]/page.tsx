@@ -4,12 +4,16 @@ import CoinChart from "./CoinChart"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
     const { id } = await params
+    const resolvedSearchParams = await searchParams
+    const days = parseInt(resolvedSearchParams.days)
     const [data, coins] = await Promise.all([
-        getCoinChart({ id }), 
+        getCoinChart({ id, days }), 
         getTopCoins()
     ])
+
+    const daysParams = [1, 7, 30, 90]
 
     const coin = coins.find((c) => c.id === id)
 
@@ -23,7 +27,7 @@ export default async function Page({ params }) {
             price,
             timestamp: new Date(timestamp).toLocaleDateString("fr-FR"), 
         }
-    ))
+    )) ?? []
 
     return(
         <div className="flex flex-col">
@@ -41,11 +45,20 @@ export default async function Page({ params }) {
                             {change.toFixed(2)}%
                         </Badge>
                     </div>
-                    <span className="text-2xl font-medium">{coin.current_price.toLocaleString("fr-FR", {
-                            style: "currency",
-                            currency: "EUR"
-                        })}
-                    </span>
+                    <div className="flex justify-between items-center w-full">
+                        <span className="text-2xl font-medium">{coin.current_price.toLocaleString("fr-FR", {
+                                style: "currency",
+                                currency: "EUR"
+                            })}
+                        </span>
+                        <div>
+                            {daysParams.map((value) => (
+                                <Link key={value} href={`/dashboard/coin/${id}?days=${value}`} className="ml-2">
+                                    <Badge className={`rounded-sm border border-zinc-200 shadow-xs ${value === days ? "bg-black text-white" : "bg-white"}`}>{value} J</Badge>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
                 </CardHeader>
                 <CardContent>
                     <CoinChart chartData={chartData} />

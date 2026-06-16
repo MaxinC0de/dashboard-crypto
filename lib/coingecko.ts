@@ -8,9 +8,9 @@ export async function getTopCoins() {
     return coins
 }
 
-export async function getCoinChart({ id }: { id: string }) {
+export async function getCoinChart({ id, days }: { id: string, days: number }) {
     const res = await fetch(
-        `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=eur&days=7`, {
+        `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=eur&days=${days}`, {
             next: {
                 revalidate: 60
             }
