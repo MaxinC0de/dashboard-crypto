@@ -1,12 +1,13 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export default function Loading() {
     return(
-        <div className="flex flex-col min-h-screen">
-            <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="flex flex-col items-center min-h-screen mt-6">
+            <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3 w-full">
                 {Array.from({ length: 3 }).map((_, i) => (
-                    <Card key={i} className="h-[173.3px] p-4 border border-zinc-200 bg-white shadow-sm ring-0">
+                    <Card key={i} className="w-full h-[173.3px] p-4 border border-zinc-200 bg-white shadow-sm ring-0">
                         <div className="flex items-center justify-between">
                             <span className="flex items-center">
                                 <Skeleton className="w-6 h-6 bg-zinc-200 rounded-full" />
@@ -20,12 +21,39 @@ export default function Loading() {
                     </Card>
                 ))}
             </div>
-            <Card className="border border-zinc-200 bg-white shadow-sm ring-0">
-                <CardHeader></CardHeader>
+            <Card className="border border-zinc-200 bg-white shadow-sm ring-0 p-4">
+                <CardHeader className="font-medium">Top 10 cryptos</CardHeader>
                 <CardContent>
-                    <div className="">
-
-                    </div>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Crypto</TableHead>
+                                <TableHead>Prix</TableHead>
+                                <TableHead>24h</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                        {Array.from({ length: 10 }).map((_, i) => 
+                            (
+                                <TableRow key={i}>
+                                    <TableCell className="flex items-center">
+                                        <Skeleton className="w-6 h-6 bg-zinc-200 rounded-full" />
+                                        <Skeleton className="mx-2 w-18 h-6 bg-zinc-200" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Skeleton className="mx-2 w-18 h-6 bg-zinc-200" />
+                                    </TableCell>
+                                    <TableCell>
+                                        <div className="flex items-center gap-x-1.5">
+                                            <Skeleton className="size-6 bg-zinc-200" />
+                                            <Skeleton className="w-15 h-6 bg-zinc-200" />
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            )
+                        )}
+                        </TableBody>
+                    </Table>
                 </CardContent>
             </Card>
         </div>
