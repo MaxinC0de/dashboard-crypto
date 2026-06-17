@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
@@ -20,6 +20,14 @@ export default function Loading() {
                     </Card>
                 ))}
             </div>
+            <Card className="border border-zinc-200 bg-white shadow-sm ring-0">
+                <CardHeader></CardHeader>
+                <CardContent>
+                    <div className="">
+
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     )
 }

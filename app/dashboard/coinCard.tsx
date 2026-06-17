@@ -11,7 +11,7 @@ export default function CoinCard({ coins }: { coins: {} }) {
                    const isUp = change > 0
                     return(
                         <Link href={`/dashboard/coin/${coin.id}`} className="cursor-pointer">
-                            <Card key={coin.id} className="border border-zinc-200 bg-white shadow-sm ring-0">
+                            <Card key={coin.id} className="border border-zinc-200 bg-white shadow-sm ring-0 mt-6">
                                 <CardHeader className="flex items-center justify-between">
                                     <span className="flex items-center">
                                         <img src={coin.image} className="w-6 h-6 mr-2" />

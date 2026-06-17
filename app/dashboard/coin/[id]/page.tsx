@@ -7,17 +7,16 @@ import { Badge } from "@/components/ui/badge"
 export default async function Page({ params, searchParams }) {
     const { id } = await params
     const resolvedSearchParams = await searchParams
-    const days = parseInt(resolvedSearchParams.days)
+    const daysParams = Number(resolvedSearchParams.days)
+    const days = [1, 7, 30, 90].includes(daysParams) ? daysParams : 7
     const [data, coins] = await Promise.all([
         getCoinChart({ id, days }), 
         getTopCoins()
     ])
 
-    const daysParams = [1, 7, 30, 90]
+    const daysOptions = [1, 7, 30, 90]
 
     const coin = coins.find((c) => c.id === id)
-
-    if (!coin) return null
 
     const change = coin.price_change_percentage_24h ?? 0
     const isUp = change > 0
@@ -28,6 +27,10 @@ export default async function Page({ params, searchParams }) {
             timestamp: new Date(timestamp).toLocaleDateString("fr-FR"), 
         }
     )) ?? []
+
+    if (!coin) return(
+        <>ddd</>
+    )
 
     return(
         <div className="flex flex-col">
@@ -45,19 +48,17 @@ export default async function Page({ params, searchParams }) {
                             {change.toFixed(2)}%
                         </Badge>
                     </div>
-                    <div className="flex justify-between items-center w-full">
-                        <span className="text-2xl font-medium">{coin.current_price.toLocaleString("fr-FR", {
-                                style: "currency",
-                                currency: "EUR"
-                            })}
-                        </span>
-                        <div>
-                            {daysParams.map((value) => (
-                                <Link key={value} href={`/dashboard/coin/${id}?days=${value}`} className="ml-2">
-                                    <Badge className={`rounded-sm border border-zinc-200 shadow-xs ${value === days ? "bg-black text-white" : "bg-white"}`}>{value} J</Badge>
-                                </Link>
-                            ))}
-                        </div>
+                    <span className="text-2xl font-medium">{coin.current_price.toLocaleString("fr-FR", {
+                            style: "currency",
+                            currency: "EUR"
+                        })}
+                    </span>
+                    <div className="mt-1">
+                        {daysOptions.map((value) => (
+                            <Link key={value} href={`/dashboard/coin/${id}?days=${value}`} className="mr-2">
+                                <Badge className={`rounded-sm border border-zinc-200 shadow-xs ${value === days ? "bg-black text-white" : "bg-white"}`}>{value} J</Badge>
+                            </Link>
+                        ))}
                     </div>
                 </CardHeader>
                 <CardContent>

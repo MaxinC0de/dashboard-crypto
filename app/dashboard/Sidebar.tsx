@@ -7,7 +7,7 @@ import { Menu } from "lucide-react";
 
 export default function Sidebar() {
     return(
-        <aside className="flex justify-between border-r border-zinc-200 text-zinc-950">
+        <aside className="sticky top-0 z-10 py-4 flex justify-between text-zinc-950 bg-white">
             <Link href="/" className="text-2xl font-semibold">Dash.com</Link>
             <Sheet>
                 <SheetTrigger><Menu /></SheetTrigger>
