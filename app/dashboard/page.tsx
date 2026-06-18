@@ -1,7 +1,7 @@
 import { getTopCoins } from "@/lib/coingecko";
 import Top10Cryptos from "./top10Cryptos";
-import CoinCard from "./CoinCard";
 import FavoritesCard from "./FavoritesCard";
+import CoinCard from "./CoinCard";
 
 
 export default async function Page() {    
