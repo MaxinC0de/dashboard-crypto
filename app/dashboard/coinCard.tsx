@@ -2,16 +2,17 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import CoinSparkline from "./CoinSparkline";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import type { Coin } from "@/lib/types";
+import { formatPrice, getChange } from "@/lib/format";
 
-export default function CoinCard({ coins }: { coins: {} }) {
+export default function CoinCard({ coins }: { coins: Coin[] }) {
     return(
         <section>
             {coins.map((coin) => {
-                   const change = coin.price_change_percentage_24h ?? 0
-                   const isUp = change > 0
+                   const { change, isUp } = getChange(coin.price_change_percentage_24h)
                     return(
-                        <Link href={`/dashboard/coin/${coin.id}`} className="cursor-pointer">
-                            <Card key={coin.id} className="border border-zinc-200 bg-white shadow-sm ring-0 mt-6">
+                        <Link key={coin.id} href={`/dashboard/coin/${coin.id}`} className="cursor-pointer">
+                            <Card className="mt-6">
                                 <CardHeader className="flex items-center justify-between">
                                     <span className="flex items-center">
                                         <img src={coin.image} className="w-6 h-6 mr-2" />
@@ -27,11 +28,7 @@ export default function CoinCard({ coins }: { coins: {} }) {
                                     </Badge>
                                 </CardHeader>
                                 <CardContent className="-mt-3">
-                                    <span className="text-2xl font-medium">{coin.current_price.toLocaleString("fr-FR", {
-                                            style: "currency",
-                                            currency: "EUR",
-                                        })}
-                                    </span>
+                                    <span className="text-2xl font-medium">{formatPrice(coin.current_price)}</span>
                                     <CoinSparkline prices={coin.sparkline_in_7d?.price ?? []} isUp={isUp} />
                                 </CardContent>
                             </Card>

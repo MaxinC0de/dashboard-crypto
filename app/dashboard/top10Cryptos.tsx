@@ -3,10 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { TrendingDown, TrendingUp } from "lucide-react"
 import Link from "next/link"
+import type { Coin } from "@/lib/types"
+import { formatPrice, getChange } from "@/lib/format"
 
-export default function Top10Cryptos({ coins }) {
+export default function Top10Cryptos({ coins }: { coins: Coin[] }) {
     return(
-        <Card className="border border-zinc-200 bg-white shadow-sm ring-0">
+        <Card>
             <CardHeader>
                 <CardTitle>Top 10 cryptos</CardTitle>
             </CardHeader>
@@ -21,8 +23,7 @@ export default function Top10Cryptos({ coins }) {
                     </TableHeader>
                     <TableBody>
                         {coins.map((coin) => {
-                            const change = coin.price_change_percentage_24h ?? 0
-                            const isUp = change > 0
+                            const { change, isUp } = getChange(coin.price_change_percentage_24h)
                             return(
                                 <TableRow key={coin.id}>
                                     <TableCell>
@@ -33,11 +34,7 @@ export default function Top10Cryptos({ coins }) {
                                             <span className="mx-2 font-medium">{coin.name}</span>
                                         </Link>
                                     </TableCell>
-                                    <TableCell className="font-medium">{coin.current_price.toLocaleString("fr-FR", {
-                                            style: "currency",
-                                            currency: "EUR",
-                                        })}
-                                    </TableCell>
+                                    <TableCell className="font-medium">{formatPrice(coin.current_price)}</TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-x-1.5">
                                             {isUp ? 

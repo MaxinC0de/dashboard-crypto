@@ -3,6 +3,21 @@ import Link from "next/link"
 import CoinChart from "./CoinChart"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { formatPrice, getChange } from "@/lib/format"
+import type { Metadata } from "next"
+
+export async function generateMetadata({
+    params,
+  }: {
+    params: Promise<{ id: string }>
+  }): Promise<Metadata> {
+    const { id } = await params
+    const coins = await getTopCoins()
+    const coin = coins.find((c) => c.id === id)
+    return {
+      title: coin ? `${coin.name} — Dash.com` : "Crypto introuvable — Dash.com",
+    }
+}
 
 export default async function Page({ params, searchParams }) {
     const { id } = await params
@@ -18,28 +33,30 @@ export default async function Page({ params, searchParams }) {
 
     const coin = coins.find((c) => c.id === id)
 
-    const change = coin.price_change_percentage_24h ?? 0
-    const isUp = change > 0
+    if (!coin) return(
+        <Link href="/dashboard">Lien retour dashboard</Link>
+    )
+
+    const { change, isUp } = getChange(coin.price_change_percentage_24h)
 
     const chartData = data?.prices.map(([timestamp, price]) => (
         { 
             price,
-            timestamp: new Date(timestamp).toLocaleDateString("fr-FR"), 
+            timestamp: days === 1 ? new Date(timestamp).toLocaleTimeString("fr-FR", {
+                hour: "2-digit",
+                minute: "2-digit",
+            }) : new Date(timestamp).toLocaleDateString("fr-FR"), 
         }
     )) ?? []
-
-    if (!coin) return(
-        <>ddd</>
-    )
 
     return(
         <div className="flex flex-col">
             <Link href="/dashboard" className="inline-flex w-fit bg-black text-white px-4 p-2 rounded-md">Retour dashboard</Link>
-            <Card className="mt-12 p-4 border border-zinc-200 bg-white shadow-sm ring-0">
+            <Card className="mt-12 p-4">
                 <CardHeader className="flex flex-col w-full">
                     <div className="flex items-center justify-between w-full">
                         <div className="flex items-center gap-x-2">
-                            <img src={coin.image} className="size-7" alt="" />
+                            <img src={coin.image} className="size-7" alt={coin.name} />
                             <span className="font-medium text-2xl">{coin.name}</span>
                             <span className="text-2xl font-medium text-zinc-400">{coin.symbol.toUpperCase()}</span>
                         </div>
@@ -48,10 +65,7 @@ export default async function Page({ params, searchParams }) {
                             {change.toFixed(2)}%
                         </Badge>
                     </div>
-                    <span className="text-2xl font-medium">{coin.current_price.toLocaleString("fr-FR", {
-                            style: "currency",
-                            currency: "EUR"
-                        })}
+                    <span className="text-2xl font-medium">{formatPrice(coin.current_price)}
                     </span>
                     <div className="mt-1">
                         {daysOptions.map((value) => (

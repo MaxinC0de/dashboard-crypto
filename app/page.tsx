@@ -3,6 +3,12 @@ import Features from "./components/Features";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import SiteShell from "./SiteShell";
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Dash.com — Dashboard crypto",
+  description: "Suis le top 10 crypto, variations 24h et graphiques.",
+}
 
 export default function Home() {
   return (

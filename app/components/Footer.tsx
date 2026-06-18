@@ -1,5 +1,5 @@
 export default function Footer() {
     return(
-        <footer className="border-t border-zinc-200 text-sm py-8 mt-12 text-zinc-800">© 2026 Dash.com</footer>
+        <footer className="border-t py-8 mt-12 text-center text-sm text-muted-foreground">© 2026 Dash.com</footer>
     )
 }

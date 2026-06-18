@@ -21,7 +21,7 @@ export default function Loading() {
                     </Card>
                 ))}
             </div>
-            <Card className="border border-zinc-200 bg-white shadow-sm ring-0 p-4">
+            <Card>
                 <CardHeader className="font-medium">Top 10 cryptos</CardHeader>
                 <CardContent>
                     <Table>

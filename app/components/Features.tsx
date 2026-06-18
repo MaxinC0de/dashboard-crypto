@@ -1,4 +1,4 @@
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { LayoutList, LineChart, TrendingUp } from "lucide-react";
 
 const icons = [<LayoutList />, <TrendingUp />, <LineChart />]
@@ -9,16 +9,16 @@ export default function Features() {
     return(
         <div>
             <h2 className="font-medium text-2xl">Tout ce qu'il faut pour suivre le marché</h2>
-            <p>Pas de jargon. Juste les chiffres qui comptent.</p>
+            <p className="text-muted-foreground mt-2">Pas de jargon. Juste les chiffres qui comptent.</p>
             <div className="grid grid-cols-1 gap-4 mt-12 md:grid-cols-3">
                 {Array.from({ length: 3 }).map((_, i) => (
-                    <Card key={i} className="border border-zinc-200 bg-white shadow-sm ring-0">
+                    <Card key={i}>
                         <CardHeader>
-                            <div className="flex items-center gap-x-2">
-                                {icons[i]}
-                                <h2 className="font-medium text-lg">{titles[i]}</h2>
+                            <div className="flex items-center gap-x-4">
+                                <span className="rounded-lg bg-muted p-2">{icons[i]}</span>
+                                <CardTitle>{titles[i]}</CardTitle>
                             </div>
-                            <p className="text-sm text-zinc-600">{descriptions[i]}</p>
+                            <CardDescription>{descriptions[i]}</CardDescription>
                         </CardHeader>
                     </Card>
                 ))}

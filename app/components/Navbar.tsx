@@ -1,7 +1,7 @@
 import Link from "next/link";
-import HamburgerMenu from "./HamburgerMenu";
 import LogoutButton from "./LogoutButton";
 import type { User } from "@supabase/supabase-js";
+import { Button } from "@/components/ui/button";
 
 export default function Navbar({ user }: { user: User | null }) {
     return(
@@ -18,8 +18,9 @@ export default function Navbar({ user }: { user: User | null }) {
                 :
                     <div className="flex items-center gap-x-3 font-semibold text-sm">
                         <Link href={"/login"} className="hover:text-black/50 cursor-pointer">Se connecter</Link>
-                        <Link href={"/signup"} className="text-white bg-black/85  px-3 py-2 rounded-lg">Commencer</Link>
-                        <HamburgerMenu />
+                        <Button asChild size="sm" className="max-w-6xl mx-auto px-4">
+                            <Link href="/login">Commencer</Link>
+                        </Button>
                     </div>
                 }
             </nav>
