@@ -5,6 +5,7 @@ import { TrendingDown, TrendingUp } from "lucide-react"
 import Link from "next/link"
 import type { Coin } from "@/lib/types"
 import { formatPrice, getChange } from "@/lib/format"
+import FavoriteButton from "../components/FavoriteButton"
 
 export default function Top10Cryptos({ coins }: { coins: Coin[] }) {
     return(
@@ -45,6 +46,9 @@ export default function Top10Cryptos({ coins }: { coins: Coin[] }) {
                                             <Badge variant="outline" className={`rounded-sm h-6 ${isUp ? "text-emerald-500 bg-emerald-500/15" : "text-red-500 bg-red-500/15"}`}>
                                                 {isUp && "+"}{change.toFixed(2)} %
                                             </Badge>
+                                            <div className="ml-auto">
+                                                <FavoriteButton id={coin.id} />
+                                            </div>
                                         </div>
                                     </TableCell>
                                 </TableRow>

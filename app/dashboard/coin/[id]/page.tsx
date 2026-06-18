@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { formatPrice, getChange } from "@/lib/format"
 import type { Metadata } from "next"
+import FavoriteButton from "@/app/components/FavoriteButton"
 
 export async function generateMetadata({
     params,
@@ -60,10 +61,13 @@ export default async function Page({ params, searchParams }) {
                             <span className="font-medium text-2xl">{coin.name}</span>
                             <span className="text-2xl font-medium text-zinc-400">{coin.symbol.toUpperCase()}</span>
                         </div>
-                        <Badge className={`rounded-sm h-6 ${isUp ? "text-emerald-500 bg-emerald-500/15" : "text-red-500 bg-red-500/15"}`}>
-                            {isUp && "+"}
-                            {change.toFixed(2)}%
-                        </Badge>
+                        <div className="flex items-center">
+                            <Badge className={`rounded-sm h-6 mr-2 ${isUp ? "text-emerald-500 bg-emerald-500/15" : "text-red-500 bg-red-500/15"}`}>
+                                {isUp && "+"}
+                                {change.toFixed(2)}%
+                            </Badge>
+                            <FavoriteButton id={coin.id} />
+                        </div>
                     </div>
                     <span className="text-2xl font-medium">{formatPrice(coin.current_price)}
                     </span>
