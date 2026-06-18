@@ -7,7 +7,7 @@ export default function Loading() {
         <div className="flex flex-col items-center min-h-screen mt-6">
             <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3 w-full">
                 {Array.from({ length: 3 }).map((_, i) => (
-                    <Card key={i} className="w-full h-[173.3px] p-4 border border-zinc-200 bg-white shadow-sm ring-0">
+                    <Card key={i} className="w-full h-[173.3px] p-4 border-border">
                         <div className="flex items-center justify-between">
                             <span className="flex items-center">
                                 <Skeleton className="w-6 h-6 bg-zinc-200 rounded-full" />
